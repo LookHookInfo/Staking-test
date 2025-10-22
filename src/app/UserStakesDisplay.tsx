@@ -101,7 +101,7 @@ function TierDisplay({ tierId, tierName, stakeData, amount, tokenContract, staki
 
   return (
     <div style={{ border: "1px solid grey", padding: "10px", margin: "10px 0", width: '200px', minHeight: '250px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-      <h3>{tierName} {stakeData.amount > 0n && `- ${(BigInt(apr || 0n) / 100n).toString()}% APR`}</h3>
+      <h3>{tierName} / {(BigInt(apr || 0n) / 100n).toString()}% APR</h3>
       <div>
         <p><strong>Staked:</strong> {(stakeData.amount / BigInt(10**18)).toString()} HASH</p>
         <p><strong>Remaining:</strong> {stakeData.amount > 0n ? formatRemainingTime(stakeData.timeLeft) : "N/A"}</p>
@@ -258,10 +258,6 @@ export default function UserStakesDisplay(props: UserStakesDisplayProps) {
           }}
           style={{ width: "100%" }}
         />
-        <p style={{ textAlign: 'center', marginTop: '5px' }}>
-          {props.amount ? Math.floor((Number(props.amount) / Number((BigInt(props.userBalance || 0n) / 10n ** 18n).toString())) * 100) : 0}% 
-          ({Math.floor(Number(props.amount || 0))} HASH)
-        </p>
       </div>
       {props.isLoadingUserStakes || props.isLoadingUserStakeSummary || props.isLoadingPoolInfo ? (
         <p>Loading your stakes...</p>
@@ -275,9 +271,9 @@ export default function UserStakesDisplay(props: UserStakesDisplayProps) {
             <p><strong>Total Staked in Pool:</strong> {props.poolInfo && props.poolInfo[0] ? (BigInt(props.poolInfo[0]) / BigInt(10**18)).toString() : '0'} HASH</p>
           </div>
           <div style={{ display: "flex", justifyContent: "space-around", marginTop: "10px" }}>
-            <TierDisplay tierId={1} tierName="3M Tier" stakeData={s3} apr={props.apr3M} {...props} />
-            <TierDisplay tierId={2} tierName="6M Tier" stakeData={s6} apr={props.apr6M} {...props} />
-            <TierDisplay tierId={3} tierName="12M Tier" stakeData={s12} apr={props.apr12M} {...props} />
+            <TierDisplay tierId={1} tierName="3 Month" stakeData={s3} apr={props.apr3M} {...props} />
+            <TierDisplay tierId={2} tierName="6 Month" stakeData={s6} apr={props.apr6M} {...props} />
+            <TierDisplay tierId={3} tierName="12 Month" stakeData={s12} apr={props.apr12M} {...props} />
           </div>
         </>
       )}
