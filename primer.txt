@@ -1,0 +1,60 @@
+Причина проблемы
+
+В твоём коде используется стандартный ERC20 токен + staking контракт.
+
+Для стейкинга нужен allowance (разрешение на перевод токенов от пользователя к контракту).
+
+Проблема не в контракте, а в том, как фронтенд пытается делать транзакцию:
+
+tokenContract.write.approve() не работает в thirdweb/react.
+
+Нельзя сразу "Approve + Stake" одной кнопкой через TransactionButton.
+
+2️⃣ Простое и надёжное решение
+
+Не менять контракт, просто использовать привычный подход:
+
+Проверяем allowance:
+
+const isApproved = (amount: string) => {
+  if (!allowance) return false;
+  return BigInt(toWei(amount)) <= BigInt(allowance.toString());
+};
+
+
+Две кнопки в UI (или одна динамическая):
+
+Если allowance недостаточно → кнопка Approve.
+
+После успешного approve → кнопка меняется на Stake.
+
+{!isApproved(amount) ? (
+  <TransactionButton
+    transaction={() => prepareContractCall({ contract: tokenContract, method: 'approve', params: [staking, toWei(amount)] })}
+    onTransactionConfirmed={() => refetchAllowance()}
+  >
+    Approve
+  </TransactionButton>
+) : (
+  <TransactionButton
+    transaction={() => prepareContractCall({ contract: stakingContract, method: 'stake', params: [toWei(amount), 1] })}
+    onTransactionConfirmed={() => refetchUserStakes()}
+  >
+    Stake
+  </TransactionButton>
+)}
+
+
+Все транзакции видны пользователю.
+
+Ошибки ловятся автоматически через TransactionButton.
+
+Никакого изменения контракта не требуется.
+
+✅ Вывод:
+
+Контракт трогать не нужно.
+
+Нужно просто использовать проверку allowance и компонент TransactionButton как задумано.
+
+Динамическая кнопка “Approve → Stake” решает все проблемы без хака или ручного .wait().
