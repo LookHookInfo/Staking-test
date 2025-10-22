@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Versel Staking Hash App
 
-## Getting Started
+A decentralized application (dApp) for staking HASH tokens and earning rewards, built with cutting-edge web3 technologies. This project showcases a seamless user experience for interacting with a staking smart contract.
 
-First, run the development server:
+## ✨ Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+*   **Token Staking**: Stake your HASH tokens across multiple tiers (3M, 6M, 12M) to earn attractive rewards.
+*   **Combined Staking Action**: A streamlined "Staking" button intelligently handles both token approval and staking in a single user interaction.
+*   **Real-time Rewards**: View your available and claimable rewards in real-time.
+*   **User-Friendly Interface**: Built with Next.js and Thirdweb for a modern and intuitive experience.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Technologies Used
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+*   **Next.js**: React framework for production.
+*   **TypeScript**: Strongly typed JavaScript for enhanced code quality.
+*   **Thirdweb**: Powerful SDK for building web3 applications.
+*   **Ethers.js / Viem / Wagmi**: (Implicitly used by Thirdweb for blockchain interaction)
+*   **Solidity**: Smart contract development language.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 Getting Started
 
-## Learn More
+Follow these steps to set up and run the project locally:
 
-To learn more about Next.js, take a look at the following resources:
+1.  **Clone the repository**:
+    ```bash
+    git clone <repository-url>
+    cd "Versel staking hash"
+    ```
+2.  **Install dependencies**:
+    ```bash
+    npm install
+    # or
+    yarn install
+    ```
+3.  **Configure Environment Variables**:
+    Create a `.env` file in the root directory and add your Thirdweb Client ID:
+    ```
+    NEXT_PUBLIC_CLIENT_ID="your_thirdweb_client_id"
+    ```
+    (Replace `your_thirdweb_client_id` with your actual Thirdweb Client ID.)
+4.  **Run the development server**:
+    ```bash
+    npm run dev
+    # or
+    yarn dev
+    ```
+5.  **Open in browser**:
+    Open [http://localhost:3000](http://localhost:3000) to view the application.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📜 Contract Details
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The staking contract offers the following tiers (test version with minutes):
+*   **3M Tier**: 3% APR
+*   **6M Tier**: 5% APR
+*   **12M Tier**: 9% APR
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+*This README was generated with the help of Gemini CLI.*

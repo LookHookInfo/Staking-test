@@ -128,25 +128,9 @@ export default function Staking() {
             ) : (
               <>
                 <p><strong>Token Address:</strong> {tokenContract.address}</p>
-                <p><strong>Allowance:</strong> {(BigInt(allowance || 0n) / 10n ** 18n).toString()} HASH</p>
                 <p><strong>Available Rewards:</strong> {(BigInt(availableRewards || 0n) / 10n ** 18n).toString()} HASH</p>
               </>
             )}
-          </div>
-
-          {/* 🔹 Stake Section */}
-          <div style={{ marginTop: "20px", border: "1px solid #ddd", padding: "15px", borderRadius: "8px" }}>
-            <h2>Stake HASH</h2>
-            <p><strong>Your Balance:</strong> {(BigInt(userBalance || 0n) / 10n ** 18n).toString()} HASH</p>
-            <input
-              type="number"
-              value={amount}
-              onChange={handleAmountChange}
-              placeholder="Amount to stake"
-              min="0"
-              style={{ width: "100%", padding: "8px", boxSizing: "border-box", marginBottom: "10px" }}
-            />
-            {error && <p style={{ color: "red" }}>{error}</p>}
           </div>
 
           {/* 🔹 User Stakes */}
@@ -167,6 +151,8 @@ export default function Staking() {
             refetchUserStakeSummary={refetchUserStakeSummary}
             refetchPoolInfo={refetchPoolInfo}
             amount={amount}
+            setAmount={setAmount}
+            handleAmountChange={handleAmountChange}
             tokenContract={tokenContract}
             allowance={allowance}
             isLoadingAllowance={isLoadingAllowance}
@@ -174,6 +160,7 @@ export default function Staking() {
             apr3M={apr3M}
             apr6M={apr6M}
             apr12M={apr12M}
+            userBalance={userBalance}
           />
 
           {/* 🔹 Fund Contract */}
