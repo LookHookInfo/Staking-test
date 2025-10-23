@@ -5,7 +5,7 @@ import {
   useSendAndConfirmTransaction,
 } from "thirdweb/react";
 import { prepareContractCall, toWei } from "thirdweb";
-import { staking } from "../../utils/contracts";
+import { stakingContract } from "../../utils/contracts";
 
 interface UserStakesDisplayProps {
   stakingContract: any;
@@ -62,7 +62,7 @@ function TierDisplay({ tierId, tierName, stakeData, amount, tokenContract, staki
         const approveTx = prepareContractCall({
           contract: tokenContract as any, // Cast to any
           method: 'approve',
-          params: [staking, amountWei],
+          params: [stakingContract.address, amountWei],
         });
         // @ts-ignore
         await sendAndConfirm(approveTx as any); // Cast the PreparedTransaction to any

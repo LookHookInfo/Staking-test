@@ -30,7 +30,7 @@ const isApproved = (amount: string) => {
 
 {!isApproved(amount) ? (
   <TransactionButton
-    transaction={() => prepareContractCall({ contract: tokenContract, method: 'approve', params: [staking, toWei(amount)] })}
+    transaction={() => prepareContractCall({ contract: tokenContract, method: 'approve', params: [stakingContract.address, toWei(amount)] })}
     onTransactionConfirmed={() => refetchAllowance()}
   >
     Approve

@@ -8,8 +8,8 @@ import {
 import { getContract, prepareContractCall, toWei, type ThirdwebContract } from "thirdweb";
 import { client } from "./client";
 import { chain } from "./chain";
-import { staking, hashTokenAddress } from "../../utils/contracts";
-import stakingAbi from "../../utils/stakingAbi";
+import { stakingContract, hashcoinAddress } from "../../utils/contracts";
+
 import erc20Abi from "../../utils/erc20";
 import UserStakesDisplay from "./UserStakesDisplay";
 
@@ -22,16 +22,11 @@ export default function Staking() {
   const tokenContract: ThirdwebContract<typeof erc20Abi> = getContract({
     client,
     chain,
-    address: hashTokenAddress,
+    address: hashcoinAddress,
     abi: erc20Abi,
   });
 
-  const stakingContract: ThirdwebContract<typeof stakingAbi> = getContract({
-    client,
-    chain,
-    address: staking,
-    abi: stakingAbi,
-  });
+
 
   // 🔹 Token balance & allowance
   const { data: userBalance, refetch: refetchBalance, isLoading: isLoadingBalance } = useReadContract({
@@ -44,7 +39,7 @@ export default function Staking() {
   const { data: allowance, refetch: refetchAllowance, isLoading: isLoadingAllowance } = useReadContract({
     contract: tokenContract,
     method: "allowance",
-    params: [account?.address || "0x0", staking],
+    params: [account?.address || "0x0", stakingContract.address],
     queryOptions: { enabled: !!account?.address },
   });
 
@@ -177,7 +172,7 @@ export default function Staking() {
             {!isApproved(fundAmount) ? (
               canApproveFund ? (
                 <TransactionButton
-                  transaction={() => prepareContractCall({ contract: tokenContract, method: 'approve', params: [staking, toWei(fundAmount)] })}
+                  transaction={() => prepareContractCall({ contract: tokenContract, method: 'approve', params: [stakingContract.address, toWei(fundAmount)] })}
                   onTransactionConfirmed={() => refetchAllowance()}
                   onError={(err) => setError(err.message)}
                 >
